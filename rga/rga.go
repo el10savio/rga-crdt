@@ -49,13 +49,20 @@ func (sequence *Sequence) Before(elementPrevious, elementNext Element) bool {
 
 // AllocateIdentifierBetween ...
 func AllocateIdentifierBetween(identifier1, identifier2 float64) float64 {
-	// TODO: Err Handle identifier1 > identifier2
+	// Handle identifier1 > identifier2
+	if identifier1 > identifier2 {
+		return -1
+	}
 	return (identifier1 + identifier2) / 2
 }
 
 // AddBetween ...
 func (sequence *Sequence) AddBetween(value string, elementPrevious, elementNext Element) Element {
-	// TODO: Err handle Before(elementPrevious, elementNext) is false
+	// Handle Before(elementPrevious, elementNext) is false
+	if !sequence.Before(elementPrevious, elementNext) {
+		return Element{}
+	}
+
 	_, identifierPrevious := sequence.Decompose(elementPrevious)
 	_, identifierNext := sequence.Decompose(elementNext)
 
