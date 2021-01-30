@@ -28,13 +28,20 @@ func (sequence *Sequence) Lookup(element Element) bool {
 
 // Decompose ...
 func (sequence *Sequence) Decompose(element Element) (string, float64) {
-	// TODO: Err Handle Element Not Present
+	// Handle Element Not Present
+	if !sequence.Lookup(element) {
+		return "", -1
+	}
 	return element.Value, element.Identifier
 }
 
 // Before ...
 func (sequence *Sequence) Before(elementPrevious, elementNext Element) bool {
-	// TODO: Err Handle Elements Not Present
+	// Handle Elements Not Present
+	if !sequence.Lookup(elementPrevious) || !sequence.Lookup(elementNext) {
+		return false
+	}
+
 	_, identifierPrevious := sequence.Decompose(elementPrevious)
 	_, identifierNext := sequence.Decompose(elementNext)
 	return identifierPrevious < identifierNext
