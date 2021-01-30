@@ -59,3 +59,10 @@ func (sequence *Sequence) AddBetween(value string, elementPrevious, elementNext 
 
 	return element
 }
+
+// Remove ...
+func (sequence *Sequence) Remove(element Element) {
+	// TODO: Err Handle Element Not Present
+	// TODO: Remove element from Sequence.Set
+	// TODO: Downstream
+}
