@@ -26,6 +26,16 @@ func (sequence *Sequence) Lookup(element Element) bool {
 	return false
 }
 
+// Index ...
+func (sequence *Sequence) Index(element Element) int {
+	for index, _element := range sequence.Set {
+		if _element.Identifier == element.Identifier {
+			return index
+		}
+	}
+	return -1
+}
+
 // Decompose ...
 func (sequence *Sequence) Decompose(element Element) (string, float64) {
 	// Handle Element Not Present
@@ -68,8 +78,11 @@ func (sequence *Sequence) AddBetween(value string, elementPrevious, elementNext 
 
 	element := Element{Value: value, Identifier: AllocateIdentifierBetween(identifierPrevious, identifierNext)}
 
-	// TODO: Add element to Sequence.Set
-	// TODO: Downstream
+	// Add element to Sequence.Set
+	index := sequence.Index(elementPrevious)
+	sequence.Set = append(sequence.Set[:index], append([]Element{element}, sequence.Set[index+1:]...)...)
+
+	// Downstream
 
 	return element
 }
@@ -82,5 +95,5 @@ func (sequence *Sequence) Remove(element Element) {
 	}
 
 	// TODO: Remove element from Sequence.Set
-	// TODO: Downstream
+	// Downstream
 }
