@@ -94,6 +94,9 @@ func (sequence *Sequence) Remove(element Element) {
 		return
 	}
 
-	// TODO: Remove element from Sequence.Set
+	// Remove element from Sequence.Set
+	index := sequence.Index(element)
+	sequence.Set = append(sequence.Set[:index], sequence.Set[index+1:]...)
+
 	// Downstream
 }
